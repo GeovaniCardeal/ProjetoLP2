@@ -23,7 +23,6 @@ public class CadastroChamado extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Menu superior
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Opções");
         JMenuItem itemUsuarios = new JMenuItem("Gerenciar Usuários");
@@ -32,7 +31,6 @@ public class CadastroChamado extends JFrame {
         menuBar.add(menu);
         setJMenuBar(menuBar);
 
-        // Campos do formulário
         campoNome = new JTextField(20);
         campoSetor = new JTextField(20);
         campoDescricao = new JTextArea(3, 20);
@@ -41,7 +39,6 @@ public class CadastroChamado extends JFrame {
         botaoSalvar = new JButton("Salvar Chamado");
         botaoListar = new JButton("Listar Chamados");
 
-        // Tabela de chamados
         modeloTabela = new DefaultTableModel(
                 new String[]{"ID", "Nome", "Setor", "Descrição", "Status", "Data"}, 0
         ) {
@@ -52,7 +49,6 @@ public class CadastroChamado extends JFrame {
         tabelaChamados = new JTable(modeloTabela);
         JScrollPane scrollTabela = new JScrollPane(tabelaChamados);
 
-        // Painel de formulário
         JPanel painelForm = new JPanel(new GridLayout(7, 1, 5, 5));
         painelForm.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         painelForm.add(new JLabel("Nome:"));
@@ -63,23 +59,19 @@ public class CadastroChamado extends JFrame {
         painelForm.add(scrollDescricao);
         painelForm.add(botaoSalvar);
 
-        // Painel principal
         JPanel painelMain = new JPanel(new BorderLayout(10, 10));
         painelMain.add(painelForm, BorderLayout.NORTH);
         painelMain.add(scrollTabela, BorderLayout.CENTER);
 
-        // Rodapé com botão listar
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottom.add(botaoListar);
         painelMain.add(bottom, BorderLayout.SOUTH);
 
         add(painelMain);
 
-        // Ações dos botões
         botaoSalvar.addActionListener(this::salvarChamado);
         botaoListar.addActionListener(e -> atualizarTabela());
 
-        // Duplo clique na tabela abre atendimento
         tabelaChamados.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 2) {
@@ -97,11 +89,9 @@ public class CadastroChamado extends JFrame {
             }
         });
 
-        // Carrega tabela logo ao abrir
         atualizarTabela();
     }
 
-    // Salva novo chamado
     private void salvarChamado(ActionEvent e) {
         String nome = campoNome.getText().trim();
         String setor = campoSetor.getText().trim();
@@ -133,4 +123,5 @@ public class CadastroChamado extends JFrame {
             });
         }
     }
+
 }
